@@ -1,0 +1,17 @@
+{
+  "author": "",
+  "name": "charigfy-stats",
+  "description": "",
+  "version": "0.0.0",
+  "repository": {
+    "url": ""
+  },
+  "main": "index.js",
+  "engines": {
+    "node": "0.4.x || 0.6.x"
+  },
+  "dependencies": {
+    "chargify": "0.1.x"
+  },
+  "devDependencies": {}
+}
