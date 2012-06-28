@@ -11,7 +11,8 @@
     "node": "0.4.x || 0.6.x"
   },
   "dependencies": {
-    "chargify": "0.1.x"
+    "chargify": "0.1.x",
+    "step": "*"
   },
   "devDependencies": {}
 }

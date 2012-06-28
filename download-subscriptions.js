@@ -1,7 +1,17 @@
-var Step = require('step');
 var fs = require('fs');
+var Step = require('step');
 var chargify = require('chargify');
-var wrapped_site = chargify.wrapSite('SITE-SUBDOMAIN', 'SITE-KEY');
+var download = require('./lib/downloader');
+
+try {
+    var config = require('./settings');
+}
+catch(e) {
+    console.warn('Failed to load settings.');
+    process.exit();
+}
+
+var wrapped_site = chargify.wrapSite(config['site-subdomain'], config['site-key']);
 
 Step(function() {
     var fetchSubs = function(err, data, page, callback) {
@@ -13,5 +23,10 @@ Step(function() {
     }.bind(this);
     fetchSubs(null, [], 1, fetchSubs);
 }, function(err, data) {
-    fs.writeFileSync('subscriptions.js', 'site.init(' + JSON.stringify(data) + ');', 'utf-8');
+    if (err) throw err;
+
+    fs.writeFile('subscriptions.json', JSON.stringify(data), 'utf-8', this);
+}, function(err) {
+    if (err) console.warn(err);
+    else console.log('> wrote subscriptions.json');
 });
